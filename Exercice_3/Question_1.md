@@ -49,7 +49,7 @@ $$\sum_{(i,k) \in E} x_{ik} - \sum_{(k,j) \in E} x_{kj} = 0 \quad \forall k \in 
 
 $$\sum_{(s,j) \in E} x_{sj} - \sum_{(i,s) \in E} x_{is} = 1$$
 
-$$\sum_{(i,t) \in E} x_{it} - \sum_{(t,j) \in E} x_{tj} = -1$$
+$$\sum_{(t,j) \in E} x_{it} - \sum_{(i,t) \in E} x_{tj} = -1$$
 
 $$x_{ij} \in \{{0, 1}\} \quad \forall (i, j) \in E$$
 
