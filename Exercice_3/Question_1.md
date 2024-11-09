@@ -1,6 +1,6 @@
 ## Formulation du problème de chemin le plus rapide avec un programme linéaire
 
-On cherche à minimiser le temps total pour aller du sommet initial \( s \) au sommet de destination \( t \) dans un graphe orienté et pondéré.
+On cherche à minimiser le temps total pour aller du sommet initial s au sommet de destination t dans un graphe orienté et pondéré.
 Le temps pour parcourir chaque arc \((i, j)\) dépend d'un scénario donné \( s \in S \), et est noté \( t_{ij}^s \).
 
 ### 1. Variables de décision
