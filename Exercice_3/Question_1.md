@@ -20,36 +20,36 @@ Pour garantir que le chemin relie le sommet initial s au sommet de destination t
 1. **Contrainte d'entrée et de sortie des sommets intermédiaires :**
 Pour chaque sommet $$k \in V \setminus \{s, t\}$$, le nombre d'arcs entrants dans k doit être égal au nombre d'arcs sortants de k, ce qui assure la continuité du chemin.
 
-   $$\sum_{(i,k) \in E} x_{ik} - \sum_{(k,j) \in E} x_{kj} = 0 \quad \forall k \in V \setminus{s, t}$$
+   $$\sum_{(i,k) \in E} x_{ik} - \sum_{(k,j) \in A} x_{kj} = 0 \quad \forall k \in V \setminus{s, t}$$
 
 
 2. **Contrainte pour le sommet initial s :** Un seul arc doit sortir du sommet initial.
 
-   $$\sum_{(s,j) \in E} x_{sj} - \sum_{(i,s) \in E} x_{is} = 1$$
+   $$\sum_{(s,j) \in E} x_{sj} - \sum_{(i,s) \in A} x_{is} = 1$$
 
 3. **Contrainte pour le sommet de destination t :**
    Un seul arc doit entrer dans le sommet de destination.
 
-   $$\sum_{(t,j) \in E} x_{tj} - \sum_{(i,t) \in E} x_{it} = 1$$
+   $$\sum_{(t,j) \in E} x_{tj} - \sum_{(i,t) \in A} x_{it} = 1$$
 
 5. **Binarité des variables de décision :**
   Les variables $$x_{ij}$$ doivent être binaires, indiquant si l'arc (i, j) est utilisé ou non dans le chemin.
 
-   $$x_{ij} \in \{0, 1\}$$  $$\quad \forall (i, j) \in E$$
+   $$x_{ij} \in \{0, 1\}$$  $$\quad \forall (i, j) \in A$$
 
 ### 4. Formulation complète du programme linéaire
 
 Le programme linéaire est formulé ainsi :
 
-$$\text{Minimiser} \quad \sum_{(i,j) \in E} t_{ij}^s \cdot x_{ij}$$
+$$\text{Minimiser} \quad \sum_{(i,j) \in A} t_{ij}^s \cdot x_{ij}$$
 
 sous les contraintes :
 
-$$\sum_{(i,k) \in E} x_{ik} - \sum_{(k,j) \in E} x_{kj} = 0 \quad \forall k \in V \setminus \{s, t\}$$
+$$\sum_{(i,k) \in A} x_{ik} - \sum_{(k,j) \in A} x_{kj} = 0 \quad \forall k \in V \setminus \{s, t\}$$
 
-$$\sum_{(s,j) \in E} x_{sj} - \sum_{(i,s) \in E} x_{is} = 1$$
+$$\sum_{(s,j) \in A} x_{sj} - \sum_{(i,s) \in A} x_{is} = 1$$
 
-$$\sum_{(t,j) \in E} x_{tj} - \sum_{(i,t) \in E} x_{it} = 1$$
+$$\sum_{(t,j) \in A} x_{tj} - \sum_{(i,t) \in A} x_{it} = 1$$
 
 $$x_{ij} \in {0, 1} \quad \forall (i, j) \in E$$
 
