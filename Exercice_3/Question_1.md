@@ -15,10 +15,10 @@ $$\text{Minimiser} \quad \sum_{(i,j) \in A} t_{ij}^s \cdot x_{ij}$$
 où A est l'ensemble des arcs du graphe.
 
 ### 3. Contraintes de flux
-Pour garantir que le chemin relie le sommet initial \( s \) au sommet de destination \( t \), on utilise les contraintes de flux suivantes :
+Pour garantir que le chemin relie le sommet initial s au sommet de destination t, on utilise les contraintes de flux suivantes :
 
 1. **Contrainte d'entrée et de sortie des sommets intermédiaires :**
-Pour chaque sommet \( k \in V \setminus \{s, t\} \), le nombre d'arcs entrants dans \( k \) doit être égal au nombre d'arcs sortants de \( k \), ce qui assure la continuité du chemin.
+Pour chaque sommet $$\( k \in V \setminus \{s, t\} \)$$, le nombre d'arcs entrants dans k doit être égal au nombre d'arcs sortants de k, ce qui assure la continuité du chemin.
 
    $$\sum_{(i,k) \in E} x_{ik} - \sum_{(k,j) \in E} x_{kj} = 0 \quad \forall k \in V \setminus \{s, t\}$$
 
@@ -35,7 +35,7 @@ Pour chaque sommet \( k \in V \setminus \{s, t\} \), le nombre d'arcs entrants d
 5. **Binarité des variables de décision :**
   Les variables $$x_{ij}$$ doivent être binaires, indiquant si l'arc (i, j) est utilisé ou non dans le chemin.
 
-   $$x_{ij} \in \{0, 1\} \quad \forall (i, j) \in E$$
+   $$x_{ij} \in \{0, 1\}$$  $$\quad \forall (i, j) \in E$$
 
 ### 4. Formulation complète du programme linéaire
 
