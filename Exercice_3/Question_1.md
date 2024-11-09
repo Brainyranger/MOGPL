@@ -17,54 +17,39 @@ où A est l'ensemble des arcs du graphe.
 ### 3. Contraintes de flux
 Pour garantir que le chemin relie le sommet initial \( s \) au sommet de destination \( t \), on utilise les contraintes de flux suivantes :
 
-1. **Contrainte d'entrée et de sortie des sommets intermédiaires :** Pour chaque sommet \( k \in V \setminus \{s, t\} \),
-2.  le nombre d'arcs entrants dans \( k \) doit être égal au nombre d'arcs sortants de \( k \), ce qui assure la continuité du chemin.
+1. **Contrainte d'entrée et de sortie des sommets intermédiaires :**
+Pour chaque sommet \( k \in V \setminus \{s, t\} \), le nombre d'arcs entrants dans \( k \) doit être égal au nombre d'arcs sortants de \( k \), ce qui assure la continuité du chemin.
 
-   \[
-   \sum_{(i,k) \in E} x_{ik} - \sum_{(k,j) \in E} x_{kj} = 0 \quad \forall k \in V \setminus \{s, t\}
-   \]
+   $$\sum_{(i,k) \in E} x_{ik} - \sum_{(k,j) \in E} x_{kj} = 0 \quad \forall k \in V \setminus \{s, t\}$$
 
-3. **Contrainte pour le sommet initial \( s \) :** Un seul arc doit sortir du sommet initial.
 
-   \[
-   \sum_{(s,j) \in E} x_{sj} - \sum_{(i,s) \in E} x_{is} = 1
-   \]
+2. **Contrainte pour le sommet initial s :** Un seul arc doit sortir du sommet initial.
 
-4. **Contrainte pour le sommet de destination \( t \) :** Un seul arc doit entrer dans le sommet de destination.
+   $$\sum_{(s,j) \in E} x_{sj} - \sum_{(i,s) \in E} x_{is} = 1$$
 
-   \[
-   \sum_{(i,t) \in E} x_{it} - \sum_{(t,j) \in E} x_{tj} = -1
-   \]
+3. **Contrainte pour le sommet de destination t :**
+   Un seul arc doit entrer dans le sommet de destination.
 
-5. **Binarité des variables de décision :** Les variables \( x_{ij} \) doivent être binaires, indiquant si l'arc \((i, j)\) est utilisé ou non dans le chemin.
+   $$\sum_{(i,t) \in E} x_{it} - \sum_{(t,j) \in E} x_{tj} = -1$$
 
-   \[
-   x_{ij} \in \{0, 1\} \quad \forall (i, j) \in E
-   \]
+5. **Binarité des variables de décision :**
+  Les variables $$x_{ij}$$ doivent être binaires, indiquant si l'arc (i, j) est utilisé ou non dans le chemin.
+
+   $$x_{ij} \in \{0, 1\} \quad \forall (i, j) \in E$$
 
 ### 4. Formulation complète du programme linéaire
 
 Le programme linéaire est formulé ainsi :
 
-\[
-\text{Minimiser} \quad \sum_{(i,j) \in E} t_{ij}^s \cdot x_{ij}
-\]
+$$\text{Minimiser} \quad \sum_{(i,j) \in E} t_{ij}^s \cdot x_{ij}$$
 
 sous les contraintes :
 
-\[
-\sum_{(i,k) \in E} x_{ik} - \sum_{(k,j) \in E} x_{kj} = 0 \quad \forall k \in V \setminus \{s, t\}
-\]
+$$\sum_{(i,k) \in E} x_{ik} - \sum_{(k,j) \in E} x_{kj} = 0 \quad \forall k \in V \setminus \{s, t\}$$
 
-\[
-\sum_{(s,j) \in E} x_{sj} - \sum_{(i,s) \in E} x_{is} = 1
-\]
+$$\sum_{(s,j) \in E} x_{sj} - \sum_{(i,s) \in E} x_{is} = 1$$
 
-\[
-\sum_{(i,t) \in E} x_{it} - \sum_{(t,j) \in E} x_{tj} = -1
-\]
+$$\sum_{(i,t) \in E} x_{it} - \sum_{(t,j) \in E} x_{tj} = -1$$
 
-\[
-x_{ij} \in \{0, 1\} \quad \forall (i, j) \in E
-\]
+$$x_{ij} \in \{0, 1\} \quad \forall (i, j) \in E$$
 
