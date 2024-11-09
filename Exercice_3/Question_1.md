@@ -18,9 +18,9 @@ où A est l'ensemble des arcs du graphe.
 Pour garantir que le chemin relie le sommet initial s au sommet de destination t, on utilise les contraintes de flux suivantes :
 
 1. **Contrainte d'entrée et de sortie des sommets intermédiaires :**
-Pour chaque sommet $$k \in V \{s, t}$$, le nombre d'arcs entrants dans k doit être égal au nombre d'arcs sortants de k, ce qui assure la continuité du chemin.
+Pour chaque sommet $$k \in V \setminus{s, t}$$, le nombre d'arcs entrants dans k doit être égal au nombre d'arcs sortants de k, ce qui assure la continuité du chemin.
 
-   $$\sum_{(i,k) \in E} x_{ik} - \sum_{(k,j) \in E} x_{kj} = 0 \quad \forall k \in V \{s, t}$$
+   $$\sum_{(i,k) \in E} x_{ik} - \sum_{(k,j) \in E} x_{kj} = 0 \quad \forall k \in V \setminus{s, t}$$
 
 
 2. **Contrainte pour le sommet initial s :** Un seul arc doit sortir du sommet initial.
