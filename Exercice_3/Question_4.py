@@ -3,6 +3,8 @@ import time
 import string
 import gurobipy as gp
 from gurobipy import GRB
+import matplotlib.pyplot as plt
+import csv
 
 # Fonction de base pour ajouter les contraintes de flux
 def add_flow_constraints(model, x, arcs, source, destination):
@@ -193,6 +195,8 @@ def mesure_temps_resolution(n_scenarios, p_nodes, n_instances=10):
     times_minmax_regret = []
     times_maxowa = []
     times_minowa = []
+
+    results = []
     
     for _ in range(n_instances):
         # Générer un graphe aléatoire avec p_nodes nœuds
@@ -233,13 +237,79 @@ def mesure_temps_resolution(n_scenarios, p_nodes, n_instances=10):
     print(f"Temps moyen pour maxOWA : {avg_time_maxowa:.2f} sec")
     print(f"Temps moyen pour minOWA : {avg_time_minowa:.2f} sec")
 
+    results.append([p_nodes, n_scenarios, avg_time_maxmin, avg_time_minmax_regret, avg_time_maxowa, avg_time_minowa])
+
+    return results
 
 
 # Test avec différentes configurations
 n_values = [2, 5, 10]
 p_values = [10, 15, 20]
 
+
+# Stockage des résultats
+all_results = []
+
+# Pour chaque combinaison de n et p
 for n in n_values:
     for p in p_values:
         print(f"\nTest pour n = {n} scénarios et p = {p} nœuds:")
-        mesure_temps_resolution(n, p, n_instances=10)
+        results = mesure_temps_resolution(n, p, n_instances=10)
+        all_results.extend(results)
+
+# Enregistrer les résultats dans un fichier CSV
+with open("results_temps_resolution.csv", mode='w', newline='', encoding='utf-8') as file:
+    writer = csv.writer(file)
+    writer.writerow(["p_nodes", "n_scenarios", "AvgTime_MaxMin", "AvgTime_MinMaxRegret", "AvgTime_MaxOWA", "AvgTime_MinOWA"])
+    writer.writerows(all_results)
+
+# Convertir les résultats pour les graphiques
+p_values_for_plot = [res[0] for res in all_results]
+n_values_for_plot = [res[1] for res in all_results]
+times_maxmin_for_plot = [res[2] for res in all_results]
+times_minmax_regret_for_plot = [res[3] for res in all_results]
+times_maxowa_for_plot = [res[4] for res in all_results]
+times_minowa_for_plot = [res[5] for res in all_results]
+
+# Créer un graphique des temps de résolution pour chaque critère
+plt.figure(figsize=(10, 6))
+
+# MaxMin
+plt.subplot(2, 2, 1)
+plt.scatter(p_values_for_plot, times_maxmin_for_plot, c=n_values_for_plot, cmap='viridis', label="MaxMin")
+plt.title("Temps moyen pour MaxMin")
+plt.xlabel("p_nodes")
+plt.ylabel("Temps (secondes)")
+plt.colorbar(label="n_scenarios")
+plt.grid(True)
+
+# MinMaxRegret
+plt.subplot(2, 2, 2)
+plt.scatter(p_values_for_plot, times_minmax_regret_for_plot, c=n_values_for_plot, cmap='viridis', label="MinMaxRegret")
+plt.title("Temps moyen pour MinMaxRegret")
+plt.xlabel("p_nodes")
+plt.ylabel("Temps (secondes)")
+plt.colorbar(label="n_scenarios")
+plt.grid(True)
+
+# MaxOWA
+plt.subplot(2, 2, 3)
+plt.scatter(p_values_for_plot, times_maxowa_for_plot, c=n_values_for_plot, cmap='viridis', label="MaxOWA")
+plt.title("Temps moyen pour MaxOWA")
+plt.xlabel("p_nodes")
+plt.ylabel("Temps (secondes)")
+plt.colorbar(label="n_scenarios")
+plt.grid(True)
+
+# MinOWA
+plt.subplot(2, 2, 4)
+plt.scatter(p_values_for_plot, times_minowa_for_plot, c=n_values_for_plot, cmap='viridis', label="MinOWA")
+plt.title("Temps moyen pour MinOWA")
+plt.xlabel("p_nodes")
+plt.ylabel("Temps (secondes)")
+plt.colorbar(label="n_scenarios")
+plt.grid(True)
+
+# Afficher les graphes
+plt.tight_layout()
+plt.show()
