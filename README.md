@@ -19,7 +19,7 @@ Dans un terminal, effectuer _cd Exercice_X/_ pour accéder aux fichiers Python c
 - ```dualDk.py``` résout le programme linéaire dual de la question 2.2 ;
 - ```maxOWA.py``` calcule la solution optimale au sens du critère MaxOWA (question 2.4) ;
 - ```minOwa.py``` calcule la solution optimale au sens du critère MinOWA des regrets (question 2.5) ;
-- ```times_execute.py``` mesure et représente les mesures temporelles des solutions au critères MaxOWA et MinOWA des regrets (question 2.6).
+- ```times_execute.py``` mesure et représente les temps d'exécution des programmes des critères MaxOWA et MinOWA des regrets (question 2.6).
 	
 ### Partie 3 : Recherche de chemin robuste dans un graphe
 
@@ -29,5 +29,5 @@ On s'intéressera ici à l'Exemple 2 du sujet.
 - ```Question_2.py``` résout les programmes linéaires associés à la recherche du chemins le plus court (question 3.2) ;
 - ```Question_3a.py``` propose et résout des programmes linéaires adaptés aux critère Maxmin et Minmax des regrets (question 3.3) ;
 - ```Question_3b.py``` propose et résout des programmes linéaires adaptés aux critère MaxOWA et MinOWA des regrets (question 3.3) ;
-- ```Question_4.py``` génère des instances aléatoires (de nombres de scénarios et de noeuds des graphes), mesure et représente les temps d'exécution des algortihmes correspondant aux 4 critères évoqués ci-dessus.
+- ```Question_4.py``` génère des instances aléatoires (de nombres de scénarios et de noeuds des graphes), mesure et représente les temps d'exécution des algorithmes correspondant aux 4 critères évoqués ci-dessus.
 	
