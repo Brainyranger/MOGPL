@@ -1,56 +1,37 @@
-#Résolution du problème MAXMIN
-
 from gurobipy import *
 
-nbcont=6
-nbvar=7
+# Données du problème
+n = 6  # nombre de variables (taille du vecteur z)
+z = [2, 9, 6, 8, 5, 4]  # valeurs du vecteur z
+k = 3  # valeur donnée pour k (vous pouvez ajuster cette valeur)
 
-lignes = range(nbcont)
-colonnes = range(nbvar)
+# Initialisation du modèle
+m = Model("Dual_Dk")
 
-# Matrice des contraintes
-a = [[1, -1, 0, 0, 0, 0, 0],
-     [1, 0, -1, 0, 0, 0, 0],
-     [1, 0, 0, -1, 0, 0, 0],
-     [1, 0, 0, 0, -1, 0, 0],
-     [1, 0, 0, 0, 0, -1, 0],
-     [1, 0, 0, 0, 0, 0, -1]]
+# Variables duales
+r = m.addVar(vtype=GRB.CONTINUOUS, lb=0, name="r_k")  # Variable duale associée à la contrainte ∑ aik = k
+b = [m.addVar(vtype=GRB.CONTINUOUS, lb=0, name=f"b_{i}") for i in range(n)]  # Variables duales b_i pour chaque i
 
-# Second membre
-b = [2, 9, 6, 8, 5, 4]
-
-# Coefficients de la fonction objectif (1ère valeur = k)
-c = [6, -1, -1, -1, -1, -1, -1]
-
-m = Model("mogplex")     
-        
-# declaration variables de decision
-x = []
-for i in colonnes:
-	x.append(m.addVar(vtype=GRB.CONTINUOUS, lb=0, name="p%d" % (i+1)))
-
-# maj du modele pour integrer les nouvelles variables
+# Mise à jour du modèle
 m.update()
 
-obj = LinExpr();
-obj =0
-for j in colonnes:
-    obj += c[j] * x[j]
-        
-# definition de l'objectif
-m.setObjective(obj,GRB.MAXIMIZE)
+# Fonction objectif du dual : maximiser k * r_k - Σ b_i
+m.setObjective(k * r - quicksum(b[i] for i in range(n)), GRB.MAXIMIZE)
 
-# Definition des contraintes
-for i in lignes:
-    m.addConstr(quicksum(a[i][j]*x[j] for j in colonnes) <= b[i], "Contrainte%d" % i)
+# Contraintes : r_k - b_i = z_i pour chaque i
+for i in range(n):
+    m.addConstr(r - b[i] == z[i], name=f"constraint_{i}")
 
-# Resolution
+# Résolution
 m.optimize()
 
+# Affichage des résultats
+print(f"Solution optimale:")
+print(f"r_k = {r.x}")  # Valeur de la variable duale r_k
+for i in range(n):
+    print(f"b_{i} = {b[i].x}")  # Valeurs des variables duales b_i
 
-print("")                
-print('Solution optimale:')
-for j in colonnes:
-    print('x%d'%(j+1), '=', x[j].x) 
-print("")
-print('Valeur de la fonction objectif :', m.objVal)
+# Calcul de la valeur de L_k(z)
+L_k_z = k * r.x - sum(b[i].x for i in range(n))
+print(f"\nComposantes du vecteur L_k(z) :")
+print(f"L_k(z) = {L_k_z}")
